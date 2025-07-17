@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
-use App\Models\Posts;
+use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,7 +14,7 @@ use Filament\Forms\Set;
 
 class PostResource extends Resource
 {
-    protected static ?string $model = Posts::class;
+    protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -46,7 +46,7 @@ class PostResource extends Resource
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
-                            ->unique(Posts::class, 'slug', ignoreRecord: true),
+                            ->unique(Post::class, 'slug', ignoreRecord: true),
 
                         Forms\Components\FileUpload::make('image')
                             ->image()

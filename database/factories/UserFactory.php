@@ -28,11 +28,11 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('sidik123'),
+            'role' => fake()->randomElement(['admin', 'user']),
             'remember_token' => Str::random(10),
             // Menambahkan field baru sesuai dengan DatabaseSeeder
             'bio' => fake()->paragraph(),
-            'skills' => json_encode(['Laravel', 'PHP', 'MySQL', 'Livewire', 'Filament']),
             'social_media' => json_encode([
                 'LinkedIn' => 'https://linkedin.com/in/ahmad-sofi-sidik' . fake()->userName(),
                 'GitHub' => 'https://github.com/assidik12' . fake()->userName(),

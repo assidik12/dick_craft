@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -26,13 +28,16 @@ class User extends Authenticatable implements JWTSubject
         'image',
         'bio',
         'image',
-        'skills',
         'social_media',
     ];
 
     protected $attributes = [
         'role' => 'user',
     ];
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,7 +58,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return [
             'skills' => 'json',
-            'social_media' => 'json',
+            'social_media' => 'array',
             'password' => 'hashed',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',

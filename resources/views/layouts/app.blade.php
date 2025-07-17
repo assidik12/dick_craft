@@ -1,72 +1,78 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Portofolio Profesional')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Selamat datang di website saya, seorang web developer yang memiliki passion dalam membuat website yang menarik dan fungsional. Saya memiliki pengalaman dalam menggunakan teknologi seperti Laravel, Tailwind CSS, dan JavaScript. Saya juga memiliki kemampuan dalam menggunakan tool seperti Git dan Docker. Saya yakin bahwa saya dapat membantu Anda dalam membuat website yang sesuai dengan kebutuhan Anda.">
+    <title>Portfolio - @yield('title', 'Welcome')</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Poppins -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Animate On Scroll (AOS) Library for animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-    @livewireStyles
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-
-    <!-- Header / Navigasi -->
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="text-2xl font-bold text-teal-600">
-                dick_craft
-            </a>
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="{{ route('home') }}" class="text-gray-600 hover:text-teal-500 transition duration-300">Home</a>
-                <a href="{{ route('about') }}" class="text-gray-600 hover:text-teal-500 transition duration-300">Tentang</a>
-                <a href="{{ route('projects') }}" class="text-gray-600 hover:text-teal-500 transition duration-300">Proyek</a>
-                <a href="{{ route('blog') }}" class="text-gray-600 hover:text-teal-500 transition duration-300">Blog</a>
-                <a href="{{ route('contact') }}" class="bg-teal-500 text-white px-4 py-2 rounded-full hover:bg-teal-600 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    Kontak
-                </a>
-            </div>
-            <!-- Tombol menu mobile bisa ditambahkan di sini -->
-        </nav>
-    </header>
-
-    <!-- Konten Utama -->
-    <main>
-        @yield('content')
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; {{ date('Y') }} [Nama Kamu]. Dibuat dengan ❤️ menggunakan Laravel.</p>
-            <!-- Link media sosial bisa ditambahkan di sini -->
-        </div>
-    </footer>
-
-    <!-- Livewire Scripts -->
-    @livewireScripts
-
-    <!-- AOS Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Styles -->
+    {{-- Di proyek nyata, ini akan menjadi @vite('resources/css/app.css') --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- Konfigurasi Tailwind untuk prototyping di CDN --}}
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand': {
+                            'dark': '#0D1117',
+                            'light': '#161B22',
+                            'border': '#30363D',
+                            'cyan': '#22D3EE',
+                            'cyan-light': '#67E8F9',
+                        },
+                        'text': {
+                            'primary': '#E6EDF3',
+                            'secondary': '#8B949E',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-cyan': '0 0 15px rgba(34, 211, 238, 0.4)',
+                        'glow-cyan-light': '0 0 25px rgba(34, 211, 238, 0.6)',
+                    }
+                }
+            }
+        }
     </script>
+
+    {{-- Alpine.js untuk interaktivitas menu mobile --}}
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- =================================================================== -->
+    <!-- KODE PENTING DITAMBAHKAN DI SINI                                     -->
+    <!-- Ini akan memuat semua style yang di-push dari halaman lain (contact, home, dll) -->
+    <!-- =================================================================== -->
+    @stack('styles')
+
+</head>
+<body class="bg-brand-dark font-sans text-text-primary antialiased">
+    @if (request()->routeIs('login'))
+        {{-- Jika title nya = auth (ada di page login.blade.php) maka disable navbar dan footer --}}
+        <main>
+            @yield('content')
+        </main>
+    @else
+        {{-- Komponen Navbar --}}
+        <x-navbar />
+
+        {{-- Konten Halaman Dinamis --}}
+        <main>
+            @yield('content')
+        </main>
+
+        {{-- Komponen Footer --}}
+        <x-footer />
+    @endif
+
 </body>
 </html>

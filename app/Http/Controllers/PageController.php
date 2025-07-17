@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,8 +14,9 @@ class PageController extends Controller
     public function home()
     {
         $profile = User::first();
-        $projects = Project::latest()->take(3)->get(); // Ambil 3 proyek terbaru
-        return view('pages.home', compact('profile', 'projects'));
+        $projects = Project::latest()->take(3)->get();
+        $skills = Skill::where('is_active', true)->get();
+        return view('pages.home', compact('profile', 'projects', 'skills'));
     }
 
     // Method untuk menampilkan halaman "Tentang Saya"

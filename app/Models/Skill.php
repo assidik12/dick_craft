@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Post extends Model
+class Skill extends Model
 {
     use HasFactory, Notifiable;
-    protected $table = 'posts';
+    protected $table = 'skills';
 
     protected $fillable = [
-        'title',
-        'slug',
-        'link',
-        'content',
-        'image'
+        'name',
+        'type',
+        'is_active',
     ];
 
     protected $casts = [
+        'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

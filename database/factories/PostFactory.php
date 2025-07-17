@@ -23,6 +23,7 @@ class PostFactory extends Factory
             // Menambahkan field sesuai dengan yang ada di DatabaseSeeder
             'title' => $title,
             'slug' => Str::slug($title),
+            'link' => fake()->url(),
             'content' => fake()->paragraphs(5, true),
         ];
     }

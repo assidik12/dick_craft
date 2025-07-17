@@ -71,6 +71,7 @@ class UserController extends Controller
     }
 
     public function login(Request $request)  {
+    Log::info('Login attempt with credentials: ', $request->only('email', 'password'));
         $validator = Validator::make($request->all(),
         [
             'email'=> 'required|email',

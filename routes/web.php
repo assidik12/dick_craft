@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use League\Csv\Query\Row;
 
 // Halaman Utama
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -27,3 +28,6 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 // Rute untuk memproses form kontak
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('contact.send');
+
+
+Route::controller('login', 'UserController');
