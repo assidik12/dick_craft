@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('category')->nullable();
             $table->string('image')->nullable();
             $table->string('link');

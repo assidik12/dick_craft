@@ -16,7 +16,7 @@ class ProjectSeeder extends Seeder
                 // 3. Buat 4 Contoh Proyek
                 Project::factory()->create([
                     'title' => 'Native Go E-Commerce API',
-                    'description' => 'A robust RESTful API built from the ground up using the Go native net/http library, designed to power a simple e-commerce application. This project demonstrates core Go principles without external frameworks, managing user accounts, product catalogs, and transactions.',
+                    'description' => 'A robust RESTful API built from the ground up using the Go net/http library, designed to power a simple e-commerce application.',
                     'category' => 'Web App',
                     'link' => 'https://github.com/assidik12/go-restfull-api.git',
                 ]);
