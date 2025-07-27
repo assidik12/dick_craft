@@ -26,10 +26,15 @@ class DatabaseSeeder extends Seeder
                 'Medium' => 'https://medium.com/@sofi.sidik12',
             ]),
             'role' => 'admin',
+            'image' => 'https://media.licdn.com/dms/image/v2/D5603AQGcXujnauD6_A/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1718260452563?e=2147483647&v=beta&t=lZ1aD0B4li413u5kuWNwiTzuPL2VBseiOvrbR5yztWI',
             'password' => Hash::make('sidik123'), // Ganti dengan password aman
         ]);
-        $this->call(ProjectSeeder::class);
-        $this->call(PostSeeder::class);
-        $this->call(SkillSeeder::class);
+
+          // Panggil seeder lain yang Anda butuhkan
+          $this->call([
+            ProjectSeeder::class,
+            PostSeeder::class,
+            SkillSeeder::class,
+        ]);
     }
 }
