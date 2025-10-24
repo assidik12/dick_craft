@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectPageController;
 use Illuminate\Support\Facades\Route;
 use League\Csv\Query\Row;
 
@@ -31,3 +32,9 @@ Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('co
 
 
 Route::controller('login', 'UserController');
+
+// Project web routes
+Route::get('/projects', [ProjectPageController::class, 'index'])->name('projects.index');
+Route::get('/projects/create', [ProjectPageController::class, 'create'])->name('projects.create');
+Route::get('/projects/{id}', [ProjectPageController::class, 'show'])->name('projects.show');
+Route::get('/projects/{id}/edit', [ProjectPageController::class, 'edit'])->name('projects.edit');
